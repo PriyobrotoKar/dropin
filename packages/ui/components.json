@@ -11,13 +11,13 @@
   },
   "iconLibrary": "tabler",
   "aliases": {
-    "components": "@workspace/ui/components",
-    "utils": "@workspace/ui/lib/utils",
-    "hooks": "@workspace/ui/hooks",
-    "lib": "@workspace/ui/lib",
-    "ui": "@workspace/ui/components"
+    "components": "@dropin/ui/components",
+    "utils": "@dropin/ui/lib/utils",
+    "hooks": "@dropin/ui/hooks",
+    "lib": "@dropin/ui/lib",
+    "ui": "@dropin/ui/components"
   },
   "rtl": false,
-  "menuColor": "default-translucent",
+  "menuColor": "default",
   "menuAccent": "subtle"
 }

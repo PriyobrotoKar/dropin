@@ -13,16 +13,23 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@dropin/contracts": "workspace:*",
+    "@dropin/ui": "workspace:*",
     "@tabler/icons-react": "^3.48.0",
     "@tailwindcss/vite": "^4",
     "@tanstack/react-devtools": "latest",
+    "@tanstack/react-query": "^5.104.1",
     "@tanstack/react-router": "latest",
     "@tanstack/react-router-devtools": "latest",
+    "@tanstack/react-router-ssr-query": "^1.167.3",
     "@tanstack/react-start": "latest",
-    "@workspace/ui": "workspace:*",
+    "@tanstack/react-table": "^9.2.6",
+    "date-fns": "^4.4.0",
+    "jose": "^6.2.12",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tanstack/devtools-vite": "latest",
@@ -33,7 +40,7 @@
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6",
     "eslint": "^10",
-    "typescript": "^6.0.2",
+    "typescript": "^7.0.2",
     "vite": "^8"
   }
 }

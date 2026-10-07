@@ -1,8 +1,20 @@
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router"
+import {
+  HeadContent,
+  Scripts,
+  createRootRouteWithContext,
+} from "@tanstack/react-router";
 
-import appCss from "@workspace/ui/globals.css?url"
+import appCss from "@dropin/ui/globals.css?url";
+import { NotFound } from "@/components/not-found";
+import { Toaster } from "@dropin/ui/components/toast";
+import { UploadsProvider } from "@/features/upload/uploads-context";
+import type { QueryClient } from "@tanstack/react-query";
+import type { Session } from "@/features/auth/lib/session";
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+  session: Session | null;
+}>()({
   head: () => ({
     meta: [
       {
@@ -23,25 +35,23 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  notFoundComponent: () => (
-    <main className="container mx-auto p-4 pt-16">
-      <h1>404</h1>
-      <p>The requested page could not be found.</p>
-    </main>
-  ),
+  notFoundComponent: NotFound,
   shellComponent: RootDocument,
-})
+});
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="">
       <head>
         <HeadContent />
       </head>
       <body>
-        {children}
+        <UploadsProvider>
+          {children}
+          <Toaster />
+        </UploadsProvider>
         <Scripts />
       </body>
     </html>
-  )
+  );
 }

@@ -8,59 +8,192 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root"
-import { Route as IndexRouteImport } from "./routes/index"
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as dashboardRouteRouteImport } from './routes/(dashboard)/route'
+import { Route as authLoginRouteRouteImport } from './routes/(auth)/login/route'
+import { Route as dashboardHomeRouteImport } from './routes/(dashboard)/home'
+import { Route as dashboardSettingsRouteImport } from './routes/(dashboard)/settings'
+import { Route as authLoginIndexRouteImport } from './routes/(auth)/login/index'
+import { Route as authLoginSuccessRouteImport } from './routes/(auth)/login/success'
 
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const dashboardRouteRoute = dashboardRouteRouteImport.update({
+  id: '/(dashboard)',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const authLoginRouteRoute = authLoginRouteRouteImport.update({
+  id: '/(auth)/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const dashboardHomeRoute = dashboardHomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => dashboardRouteRoute,
+} as any)
+const dashboardSettingsRoute = dashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => dashboardRouteRoute,
+} as any)
+const authLoginIndexRoute = authLoginIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => authLoginRouteRoute,
+} as any)
+const authLoginSuccessRoute = authLoginSuccessRouteImport.update({
+  id: '/success',
+  path: '/success',
+  getParentRoute: () => authLoginRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute
+  '/': typeof IndexRoute
+  '/login': typeof authLoginRouteRouteWithChildren
+  '/home': typeof dashboardHomeRoute
+  '/settings': typeof dashboardSettingsRoute
+  '/login/success': typeof authLoginSuccessRoute
+  '/login/': typeof authLoginIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute
+  '/': typeof IndexRoute
+  '/home': typeof dashboardHomeRoute
+  '/settings': typeof dashboardSettingsRoute
+  '/login/success': typeof authLoginSuccessRoute
+  '/login': typeof authLoginIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  "/": typeof IndexRoute
+  '/': typeof IndexRoute
+  '/(dashboard)': typeof dashboardRouteRouteWithChildren
+  '/(auth)/login': typeof authLoginRouteRouteWithChildren
+  '/(dashboard)/home': typeof dashboardHomeRoute
+  '/(dashboard)/settings': typeof dashboardSettingsRoute
+  '/(auth)/login/success': typeof authLoginSuccessRoute
+  '/(auth)/login/': typeof authLoginIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/"
+  fullPaths:
+    '/' | '/login' | '/home' | '/settings' | '/login/success' | '/login/'
   fileRoutesByTo: FileRoutesByTo
-  to: "/"
-  id: "__root__" | "/"
+  to: '/' | '/home' | '/settings' | '/login/success' | '/login'
+  id:
+    | '__root__'
+    | '/'
+    | '/(dashboard)'
+    | '/(auth)/login'
+    | '/(dashboard)/home'
+    | '/(dashboard)/settings'
+    | '/(auth)/login/success'
+    | '/(auth)/login/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  dashboardRouteRoute: typeof dashboardRouteRouteWithChildren
+  authLoginRouteRoute: typeof authLoginRouteRouteWithChildren
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/"
-      path: "/"
-      fullPath: "/"
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/(dashboard)': {
+      id: '/(dashboard)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof dashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/login': {
+      id: '/(auth)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authLoginRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(dashboard)/home': {
+      id: '/(dashboard)/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof dashboardHomeRouteImport
+      parentRoute: typeof dashboardRouteRoute
+    }
+    '/(dashboard)/settings': {
+      id: '/(dashboard)/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof dashboardSettingsRouteImport
+      parentRoute: typeof dashboardRouteRoute
+    }
+    '/(auth)/login/': {
+      id: '/(auth)/login/'
+      path: '/'
+      fullPath: '/login/'
+      preLoaderRoute: typeof authLoginIndexRouteImport
+      parentRoute: typeof authLoginRouteRoute
+    }
+    '/(auth)/login/success': {
+      id: '/(auth)/login/success'
+      path: '/success'
+      fullPath: '/login/success'
+      preLoaderRoute: typeof authLoginSuccessRouteImport
+      parentRoute: typeof authLoginRouteRoute
     }
   }
 }
 
+interface dashboardRouteRouteChildren {
+  dashboardHomeRoute: typeof dashboardHomeRoute
+  dashboardSettingsRoute: typeof dashboardSettingsRoute
+}
+
+const dashboardRouteRouteChildren: dashboardRouteRouteChildren = {
+  dashboardHomeRoute: dashboardHomeRoute,
+  dashboardSettingsRoute: dashboardSettingsRoute,
+}
+
+const dashboardRouteRouteWithChildren = dashboardRouteRoute._addFileChildren(
+  dashboardRouteRouteChildren,
+)
+
+interface authLoginRouteRouteChildren {
+  authLoginSuccessRoute: typeof authLoginSuccessRoute
+  authLoginIndexRoute: typeof authLoginIndexRoute
+}
+
+const authLoginRouteRouteChildren: authLoginRouteRouteChildren = {
+  authLoginSuccessRoute: authLoginSuccessRoute,
+  authLoginIndexRoute: authLoginIndexRoute,
+}
+
+const authLoginRouteRouteWithChildren = authLoginRouteRoute._addFileChildren(
+  authLoginRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  dashboardRouteRoute: dashboardRouteRouteWithChildren,
+  authLoginRouteRoute: authLoginRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from "./router.tsx"
-import type { createStart } from "@tanstack/react-start"
-declare module "@tanstack/react-start" {
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
     router: Awaited<ReturnType<typeof getRouter>>

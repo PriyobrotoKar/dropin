@@ -14,10 +14,10 @@
     "components": "@/components",
     "hooks": "@/hooks",
     "lib": "@/lib",
-    "utils": "@workspace/ui/lib/utils",
-    "ui": "@workspace/ui/components"
+    "utils": "@dropin/ui/lib/utils",
+    "ui": "@dropin/ui/components"
   },
   "rtl": false,
-  "menuColor": "default-translucent",
+  "menuColor": "default",
   "menuAccent": "subtle"
 }
